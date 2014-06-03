@@ -53,12 +53,24 @@ public interface ImperativeDeclarativePrime {
 	static void main(String[] args) {
 		List<Integer> values = Arrays.asList(10, 3, 25, 30, 44, 7);
 		
+		/*
+		 * i. Find Prime numbers in a List imperatively
+		 */
+		for (Integer num : values) {
+			if (isPrimeImperative(num)) {
+				System.out.println(num);
+			}
+		}
+		
+		/*
+		 * ii. Find Prime numbers in a List declaratively 
+		 */
 		values.stream()
 				.filter(ImperativeDeclarativePrime::isPrimeDeclarative)
 				.forEach(System.out::println);
 		/*
-		 * Another advantage of functional style is that
-		 * we can apply concurrency safely
+		 * iii. Another advantage of functional style is that
+		 * 		we can apply concurrency safely
 		 */
 		values.parallelStream()
 				.filter(ImperativeDeclarativePrime::isPrimeDeclarative)
