@@ -27,16 +27,18 @@ public interface ImperativeDeclarativePrime {
 	 * @return
 	 */
 	static boolean isPrimeImperative(int num) {
+		boolean prime = true;
 		if (num > 1) {
-			for (int i = 2; i < num; i++) {
-				if (num % i == 0) {
-					return false;
+			for (int divisor = 2; divisor < num; divisor++) {
+				if (num % divisor == 0) {
+					prime = false;
+					break;
 				}
 			}
-			return true;
 		} else {
-			return false;
+			prime = false;
 		}
+		return prime;
 	}
 	
 	/**
