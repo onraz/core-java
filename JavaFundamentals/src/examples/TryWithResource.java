@@ -5,7 +5,7 @@ public interface TryWithResource {
 	
 	class MyResource implements AutoCloseable {
 		String name;
-		public MyResource(String name) { this.name = name; System.err.println("Creating.." + name);}
+		public MyResource(String name) { this.name = name; System.err.println("\nCreating.." + name);}
 		public void doSomething() { System.err.println("Doing.." + name);}
 		public void doSomethingError() throws Exception { doSomething(); throw new Exception("Error.." + name); }
 		@Override public void close() throws Exception { System.err.println("Closing.." + name); }
@@ -17,17 +17,44 @@ public interface TryWithResource {
 	}
 
 	static void main(String... args) throws Exception {
-		/*
-		 * try with resources closes resource before it handles
-		 * exception in catch statement or finally statement
-		 */
-		try(MyResource resource1 = new MyResource("resource-1")) {
-			resource1.doSomething();
-			resource1.doSomethingError();
-		} catch (Exception e) {
-			System.err.println("Executing Catch Statement for " + e);
-		} finally {
-			System.err.println("Executing finally\n");
+		
+		try {
+			/*
+			 * Observe the behaviour without try-without-resource
+			 * 	1. Resource need to be declared outside try block
+			 * 	2. Resource needs to be closed in finally
+			 * 	3. The exception thrown is the one in close() statement, not the actual error
+			 */
+			MyResource resource = null;
+			try {
+				resource = new MyFaultyResource("resource-0");
+				resource.doSomething();
+				resource.doSomethingError();
+			} finally {
+				System.err.println("Executing finally");
+				if (resource != null) resource.close();
+			}
+		} catch(Exception ex) {
+			// the exception from resource.close()
+			ex.printStackTrace();
+		}
+		
+		try {
+			/*
+			 * try with resources closes resource before it handles
+			 * exception in catch statement or finally statement
+			 * 
+			 * 	Note: Unlike ordinary try blocks, try-with-resource suppresses close() exceptions
+			 */
+			try(MyResource resource1 = new MyResource("resource-1")) {
+				resource1.doSomething();
+				resource1.doSomethingError();
+			} finally {
+				System.err.println("Executing finally");
+			}
+		} catch (Exception ex) {
+			// the exception from resource1.doSomethingError()
+			ex.printStackTrace();
 		}
 		
 		/*
@@ -40,7 +67,7 @@ public interface TryWithResource {
 		} catch (Exception e) {
 			System.err.println("Executing Catch Statement for " + e);
 		} finally {
-			System.err.println("Executing finally\n");
+			System.err.println("Executing finally");
 		}
 		
 		/*
@@ -53,6 +80,10 @@ public interface TryWithResource {
 			resource1.doSomething();
 			resource2.doSomethingError();
 		} catch (Exception e) {
+			/*
+			 * Note that the close statement is executed before catch(), so 
+			 * the suppressed exception is available here
+			 */
 			System.err.println("Executing Catch Statement for " + e);
 			System.err.println("....Suppressed Exception is: " + e.getSuppressed()[0]);
 		} finally {
