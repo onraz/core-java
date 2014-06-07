@@ -124,6 +124,20 @@ public interface Generics {
 		List<Pair<Integer, Double>> boxList = new ArrayList<>();
 		boxList.add(new Pair<>(3, 5.5));
 		
+		
+		/*
+		 *  Diamond Operator Inference
+		 *  	Allows us to omit type arguments on the right
+		 */
+		List<String> list = new ArrayList<>();
+		list.add("A");
+		
+		// The following statement should fail since addAll expects
+		  // Collection<? extends String>
+
+		list.addAll(new ArrayList<>());
+		System.out.println(list);
+		
 	}
 	
 }
