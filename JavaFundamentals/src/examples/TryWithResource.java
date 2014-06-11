@@ -7,13 +7,13 @@ public interface TryWithResource {
 		String name;
 		public MyResource(String name) { this.name = name; System.err.println("\nCreating.." + name);}
 		public void doSomething() { System.err.println("Doing.." + name);}
-		public void doSomethingError() throws Exception { doSomething(); throw new Exception("Error.." + name); }
+		public void doSomethingError() throws Exception { doSomething(); throw new NullPointerException("Error.." + name); }
 		@Override public void close() throws Exception { System.err.println("Closing.." + name); }
 	}
 	
 	class MyFaultyResource extends MyResource {
 		public MyFaultyResource(String name) { super(name); }
-		@Override public void close() throws Exception { throw new Exception("Error Closing.." + name); }
+		@Override public void close() throws Exception { throw new IllegalArgumentException("Error Closing.." + name); }
 	}
 
 	static void main(String... args) throws Exception {
@@ -34,7 +34,8 @@ public interface TryWithResource {
 				System.err.println("Executing finally");
 				if (resource != null) resource.close();
 			}
-		} catch(Exception ex) {
+			/* Notice how you can catch multiple exceptions using | operator */
+		} catch(IllegalArgumentException | NullPointerException ex) {
 			// the exception from resource.close()
 			ex.printStackTrace();
 		}

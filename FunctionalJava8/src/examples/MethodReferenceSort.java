@@ -1,40 +1,14 @@
 package examples;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import domain.Person;
+
 public interface MethodReferenceSort {
 
-	class Person {
-		String name;
-		LocalDate birthday;
-
-		public Person(String name, LocalDate birthday) {
-			this.name = name;
-			this.birthday = birthday;
-		}
-		
-		public int getAge() {
-			return birthday.until(LocalDate.now()).getYears();
-		}
-
-		public static int compareByAge(Person a, Person b) {
-			return a.birthday.compareTo(b.birthday);
-		}
-
-		public String toString() {
-			return name + ", " + getAge();
-		}
-	}
-
 	static void main(String... args) {
-		Person[] roster = new Person[]{
-					new Person("Gill", LocalDate.of(1981, 2, 17)),
-					new Person("Bob", LocalDate.of(1985, 8, 3)),
-					new Person("Tim", LocalDate.of(1971, 5, 15)),
-					new Person("Ray", LocalDate.of(1971, 11, 29))
-		};
+		Person[] roster = Person.getRoster();
 		
 		/*
 		 * Sorting using traditional Comparator Interface
@@ -64,7 +38,7 @@ public interface MethodReferenceSort {
 		 * Using Streams
 		 */
 		Arrays.stream(roster)
-				.filter(person -> person.name.startsWith("R"))
+				.filter(person -> person.getName().startsWith("R"))
 				.forEach(System.out::println);
 		
 	}
