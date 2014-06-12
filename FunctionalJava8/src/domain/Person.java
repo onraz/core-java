@@ -33,8 +33,12 @@ public class Person {
 		return a.birthday.compareTo(b.birthday);
 	}
 
+	public Sex getSex() {
+		return sex;
+	}
+	
 	public String toString() {
-		return name + ", " + getAge();
+		return name + ", " + sex + " Age: " + getAge();
 	}
 	
 	public static Person[] getRoster() {
