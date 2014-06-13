@@ -52,6 +52,7 @@ public interface Predicates {
 			.reduce((x, y) -> x.length() > y.length() ? x : y)
 			.ifPresent(System.out::println);
 		
+		// Easier to do String.
 		System.out.println(
 			names.stream()
 				.collect(Collectors.joining(", "))
