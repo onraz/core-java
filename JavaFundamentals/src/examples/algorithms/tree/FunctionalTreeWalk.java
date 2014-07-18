@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 public class FunctionalTreeWalk<T> {
 	
-	
 	private Tree<T> tree;
 	
 	private Predicate<T> selector = e -> true;
