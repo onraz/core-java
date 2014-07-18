@@ -4,26 +4,24 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class SampleTreeWalk<T> {
-	enum WalkOrder { PreOrder, InOrder, PostOrder }
+public class FunctionalTreeWalk<T> {
+	
 	
 	private Tree<T> tree;
-	private WalkOrder order = WalkOrder.PreOrder;
 	
 	private Predicate<T> selector = e -> true;
 	private Function<T,T> mapper = e -> e;
 	
-	public SampleTreeWalk(Tree<T> tree, WalkOrder order) {
+	public FunctionalTreeWalk(Tree<T> tree) {
 		this.tree = tree;
-		this.order = order;
 	}
 	
-	public SampleTreeWalk<T> filter(Predicate<T> selector) {
+	public FunctionalTreeWalk<T> filter(Predicate<T> selector) {
 		this.selector = selector;
 		return this;
 	}
 	
-	public SampleTreeWalk<T> map(Function<T,T> mapper) {
+	public FunctionalTreeWalk<T> map(Function<T,T> mapper) {
 		this.mapper = mapper;
 		return this;
 	}

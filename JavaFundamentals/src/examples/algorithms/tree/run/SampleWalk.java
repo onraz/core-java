@@ -1,11 +1,13 @@
-package examples.algorithms.tree;
+package examples.algorithms.tree.run;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import examples.algorithms.tree.SampleTreeWalk.WalkOrder;
+import examples.algorithms.tree.FunctionalTreeWalk;
+import examples.algorithms.tree.Tree;
+import examples.algorithms.tree.TreeWalk;
 
 public class SampleWalk {
 	
@@ -21,7 +23,7 @@ public class SampleWalk {
 	
 	static void walkFunctional() {
 		// Using a functional api
-		new SampleTreeWalk<>(familyTree, WalkOrder.InOrder)
+		new FunctionalTreeWalk<>(familyTree)
 		.filter(e -> !e.equals("family"))
 		.map(e -> e.toUpperCase())
 		.forEach(System.out::println);		
