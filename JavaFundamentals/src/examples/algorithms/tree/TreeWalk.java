@@ -7,18 +7,28 @@ import java.util.function.Consumer;
 public class TreeWalk {
 	
 	public static <T> void walkDfs(Tree<T> tree, Consumer<T> consumer) {
+		// consume parent
 		consumer.accept(tree.head);
-		for (Tree<T> subTree : tree.leafs) {
-			walkDfs(subTree, consumer);
+		// consume leafs
+		for (Tree<T> leaf : tree.leafs) {
+			walkDfs(leaf, consumer);
 		}
 	}
 	
 	public static <T> void walkBfs(Tree<T> tree, Consumer<T> consumer) {
-		Queue<T> nodes = new LinkedList<T>();
-		consumer.accept(tree.head);
+		// Initialise queue with root
+		Queue<Tree<T>> queue = new LinkedList<>();
+		queue.add(tree);
 		
-		for (Tree<T> subTree : tree.leafs) {
-			walkDfs(subTree, consumer);
+		// consume parent and enqueue children
+		while (!queue.isEmpty()) {
+			Tree<T> node = queue.remove();
+			// consume parent
+			consumer.accept(node.head);
+			// queue children
+			for (Tree<T> leaf : node.leafs) {
+				queue.add(leaf);
+			}
 		}
 	}	
 }

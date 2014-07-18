@@ -27,17 +27,23 @@ public class SampleWalk {
 		.forEach(System.out::println);		
 		
 		// Simpler api - using consumer
+		List<String> nodes = new ArrayList<>();
+		TreeWalk.walkDfs(familyTree, nodes::add);
+		
+		System.out.println("Dfs Result: " + nodes);
+		
+		// Simpler api - using consumer
 		Map<Integer, String> map = new HashMap<>();
-		TreeWalk.walk(familyTree, e -> map.put(e.length(), e));
+		TreeWalk.walkDfs(familyTree, e -> map.put(e.length(), e));
 		
 		System.out.println("Result: " + map);		
 	}
 	
 	public static void main(String[] args) {
-		// Simpler api - using consumer
-		List<String> nodes = new ArrayList<>();
-		TreeWalk.walk(familyTree, nodes::add);
+		System.out.println("DFS");
+		TreeWalk.walkDfs(familyTree, System.out::println);
 		
-		System.out.println("Result: " + nodes);
+		System.out.println("BFS");
+		TreeWalk.walkBfs(familyTree, System.out::println);
 	}
 }
