@@ -1,12 +1,12 @@
-package examples.algorithms.tree;
+package algorithms.tree;
 
-public class BinaryTree<T> {
-	T element;
+public class BinaryTree<T extends Comparable<T>> {
+	public T data;
 	BinaryTree<T> left;
 	BinaryTree<T> right;
 	
 	public BinaryTree(T value) {
-		this.element = value;
+		this.data = value;
 	}
 	
 	public BinaryTree<T> setLeft(T value) {
@@ -20,4 +20,5 @@ public class BinaryTree<T> {
 		this.right = rightTree;
 		return rightTree;
 	}
+	
 }

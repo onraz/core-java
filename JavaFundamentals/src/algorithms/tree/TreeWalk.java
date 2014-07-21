@@ -1,4 +1,4 @@
-package examples.algorithms.tree;
+package algorithms.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;

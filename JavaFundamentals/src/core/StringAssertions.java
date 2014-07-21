@@ -1,4 +1,4 @@
-package examples;
+package core;
 
 public class StringAssertions {
 

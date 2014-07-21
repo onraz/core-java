@@ -1,13 +1,13 @@
-package examples.algorithms.tree.run;
+package algorithms.tree.run;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import examples.algorithms.tree.FunctionalTreeWalk;
-import examples.algorithms.tree.Tree;
-import examples.algorithms.tree.TreeWalk;
+import algorithms.tree.FunctionalTreeWalk;
+import algorithms.tree.Tree;
+import algorithms.tree.TreeWalk;
 
 public class SampleWalk {
 	

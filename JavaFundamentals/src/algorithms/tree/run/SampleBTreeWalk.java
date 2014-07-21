@@ -1,7 +1,7 @@
-package examples.algorithms.tree.run;
+package algorithms.tree.run;
 
-import examples.algorithms.tree.BinaryTree;
-import examples.algorithms.tree.BinaryTreeWalk;
+import algorithms.tree.BinaryTree;
+import algorithms.tree.BinaryTreeWalk;
 
 public class SampleBTreeWalk {
 	public static void main(String[] args) {
