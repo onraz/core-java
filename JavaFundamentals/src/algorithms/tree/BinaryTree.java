@@ -1,6 +1,6 @@
 package algorithms.tree;
 
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree<T extends Comparable<? super T>> {
 	public T data;
 	BinaryTree<T> left;
 	BinaryTree<T> right;

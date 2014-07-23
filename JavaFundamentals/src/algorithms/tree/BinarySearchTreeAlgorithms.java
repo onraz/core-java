@@ -115,7 +115,7 @@ left                                  left
 	 * O(n), Since this is bottom up approach and each node is touched only once
 	 */
 	public static <T extends Comparable<T>> BinaryTree<T> lowestCommonAncestor(BinaryTree<T> root, T p, T q) {
-        if (root == null) return null;
+        if (root == null) return root;
 
         // if we find p or q pass it up to the parent in line 2 or 3
         if (root.data == p || root.data == q) return root;
@@ -132,5 +132,47 @@ left                                  left
         return (left != null) ? left : right;
     }
 	
+	/**
+	 * Lowest Common Ancestor
+	 * Both nodes are to left of the tree
+	 * Both nodes are to right of the tree
+	 * one node is on left while other is on right it is lca.
+	 * if current node is either of the two nodes it is lca.
+	 */
+	public static BinaryTree<Integer> lowestCommonAncestorBst(BinaryTree<Integer> root, int p, int q) {
+		if (root == null) return root;
+		
+		if (Math.max(p, p) < root.data) {
+			// both p,q on the left
+			return lowestCommonAncestorBst(root.left, p, q);
+		} else if (Math.min(p, q) > root.data) {
+			// both p,q on the right
+			return lowestCommonAncestorBst(root.right, p, q);
+		} else {
+			// one node on left, and one on right, or root is one of the nodes
+			return root;
+		}
+	}
 	
+	public static boolean isBalanced(BinaryTree<Integer> root) {
+		if (root == null) return true;
+		if (getHeight(root) == -1) return false;
+		return true;
+	}
+ 
+	// bottom up height start with 0, add 1 as we go up
+	public static int getHeight(BinaryTree<Integer> root) {
+		if (root == null) return 0;
+ 
+		int left = getHeight(root.left);
+		int right = getHeight(root.right);
+ 
+		// if either left or right subtree is imbalanced, return
+		if (left == -1 || right == -1) return -1;
+		// if both left and right subtree are balanced, check root
+		if (Math.abs(left - right) > 1) return -1;
+		// otherwise go up, adding the height
+		return Math.max(left, right) + 1;
+ 
+	}	
 }
