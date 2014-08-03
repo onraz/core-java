@@ -1,4 +1,4 @@
-package core;
+package core.concurrent;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;

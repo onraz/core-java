@@ -1,4 +1,4 @@
-package core;
+package core.concurrent;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -42,6 +42,7 @@ public class ExecutorsInAction {
 	private static void scheduleFixed() {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
 		executor.scheduleAtFixedRate(() -> System.out.println("Hello"), 0, 1, TimeUnit.SECONDS);
+		executor.scheduleWithFixedDelay(() -> System.out.println("Hello"), 0, 1, TimeUnit.SECONDS);
 		
 	}
 }
