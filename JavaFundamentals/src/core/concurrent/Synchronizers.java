@@ -11,11 +11,13 @@ import java.util.stream.IntStream;
 
 public class Synchronizers {
 	public static void main(String[] args) throws Exception {
-//		demoCyclicBarrier();
+		demoCyclicBarrier();
 //		demoCountdownlatch();
-		demoRentrantLock();
+//		demoRentrantLock();
 	}
 
+	
+	// TODO: Demo Semaphores, Exchanger
 	private static void demoCyclicBarrier() {
 		CyclicBarrier barrier = new CyclicBarrier(3);
 		ExecutorService executor = Executors.newFixedThreadPool(5);
@@ -29,6 +31,22 @@ public class Synchronizers {
 		});
 		// once barrier is used, it no longer can block threads, need to reset
 		barrier.reset();
+		executor.shutdown();
+		
+		/**
+		 * Executes the task when all in barrier
+		 */
+		CyclicBarrier barrierWithTask = new CyclicBarrier(3, () -> System.out.println("YAY! All crossed the barrier"));
+		ExecutorService executor2 = Executors.newFixedThreadPool(5);
+		IntStream.range(0, 3).forEach( e -> {
+			executor2.submit(() -> {
+				System.out.println("Arrived at Barrier " + e);
+				barrierWithTask.await();
+				return null;
+			});
+		});
+		// once barrier is used, it no longer can block threads, need to reset
+		barrierWithTask.reset();
 		executor.shutdown();
 	}
 	
