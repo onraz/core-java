@@ -47,7 +47,7 @@ public class Synchronizers {
 		});
 		// once barrier is used, it no longer can block threads, need to reset
 		barrierWithTask.reset();
-		executor.shutdown();
+		executor2.shutdown();
 	}
 	
 	private static void demoCountdownlatch() throws InterruptedException {
