@@ -52,17 +52,21 @@ public class Synchronizers {
 	
 	private static void demoCountdownlatch() throws InterruptedException {
 		CountDownLatch latch = new CountDownLatch(3);
-		ExecutorService executor = Executors.newFixedThreadPool(5);
+		ExecutorService executor = Executors.newCachedThreadPool();
+		
+		// submit three tasks
 		IntStream.range(0, 3).forEach( e -> {
 			executor.submit(() -> {
-				System.out.println("Performed task " + e);
+				// do long running task here
+				System.out.println("Performing long task: " + e);
+				// once task is finished, countDown to signal latch
 				latch.countDown();
-				return null;
 			});
 		});
 		System.out.println("Waiting till all tasks are done.....");
 		latch.await();
-		System.out.println("YAY! All tasks are done!! ");
+		System.out.println("All tasks are done!! ");
+		
 		executor.shutdown();
 	}
 	
