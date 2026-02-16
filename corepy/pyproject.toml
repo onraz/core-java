@@ -1,0 +1,14 @@
+[project]
+name = "corepy"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "pandas-stubs~=3.0.0",
+    "pytest>=9.0.2",
+    "pytest-mock>=3.15.1",
+]
+
+[tool.uv.workspace]
+members = [
+    "ml",
+]
